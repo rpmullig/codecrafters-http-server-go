@@ -28,7 +28,7 @@ func main() {
 	defer conn.Close()
 
 	var request_bytes []byte
-	_, err := conn.Read(request_bytes)
+	_, err = conn.Read(request_bytes)
 	if err != nil {
 		fmt.Println("Error reading from conneciton: ", err.Error())
 		os.Exit(1)
