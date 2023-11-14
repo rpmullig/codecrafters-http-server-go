@@ -28,6 +28,12 @@ func main() {
 	}
 	defer conn.Close()
 
+	for {
+		go handle(conn)
+	}
+
+}
+func handle(conn net.Conn) {
 	var request_bytes_buffer []byte = make([]byte, 1024)
 	_, err = conn.Read(request_bytes_buffer)
 	if err != nil {
