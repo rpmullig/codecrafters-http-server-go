@@ -14,27 +14,8 @@ const HTTP_404_NOT_FOUND string = "HTTP/1.1 404 Not Found"
 const CONTENT_TYPE_TEXT string ="Content-Type: text/plain"
 const ECHO_PREFIX string = "/echo/"
 
-func main() {
-	l, err := net.Listen("tcp", "0.0.0.0:4221")
-	if err != nil {
-		fmt.Println("Failed to bind to port 4221")
-		os.Exit(1)
-	}
-	defer l.Close()
-
-	for {
-		conn, err := l.Accept()
-		if err != nil {
-			fmt.Println("Error accepting connection: ", err.Error())
-			os.Exit(1)
-		}
-		defer conn.Close()
-
-		go handle(conn)
-	}
-
-}
 func handle(conn net.Conn) {
+
 	var request_bytes_buffer []byte = make([]byte, 1024)
 	_, err = conn.Read(request_bytes_buffer)
 	if err != nil {
@@ -79,3 +60,26 @@ func parse_headers(request_lines []string) (map[string]string, int) {
     }
     return headers, i
 }
+
+func main() {
+	l, err := net.Listen("tcp", "0.0.0.0:4221")
+	if err != nil {
+		fmt.Println("Failed to bind to port 4221")
+		os.Exit(1)
+	}
+	defer l.Close()
+
+	for {
+		conn, err := l.Accept()
+		if err != nil {
+			fmt.Println("Error accepting connection: ", err.Error())
+			os.Exit(1)
+		}
+		defer conn.Close()
+
+		go handle(conn)
+	}
+
+}
+
+
