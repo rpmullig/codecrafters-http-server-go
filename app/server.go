@@ -42,7 +42,7 @@ func main() {
 	// http_verb := request_line[0]
 	path := request_line[1]
 
-	request_headers, i = parse_headers(lines)
+	request_headers, i := parse_headers(lines)
 	request_body := lines[i:]
 
 	if path == "/" {
