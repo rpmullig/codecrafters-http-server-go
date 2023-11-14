@@ -11,8 +11,6 @@ func main() {
 	const HTTP_200_OK string = "HTTP/1.1 200 OK"
 	const HTTP_404_NOT_FOUND string = "HTTP/1.1 404 Not Found"
 
-	fmt.Println("Logs from your program will appear here!")
-
 	l, err := net.Listen("tcp", "0.0.0.0:4221")
 	if err != nil {
 		fmt.Println("Failed to bind to port 4221")
@@ -34,7 +32,7 @@ func main() {
 	}
 
 	var request_string string = string(request_bytes)
-	fmt.Println(request_string)
+	fmt.Println("Request string: ", request_string)
 
 	conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
 }
