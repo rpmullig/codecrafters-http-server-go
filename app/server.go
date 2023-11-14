@@ -17,7 +17,7 @@ const ECHO_PREFIX string = "/echo/"
 func handle(conn net.Conn) {
 
 	var request_bytes_buffer []byte = make([]byte, 1024)
-	_, err = conn.Read(request_bytes_buffer)
+	_, err := conn.Read(request_bytes_buffer)
 	if err != nil {
 		fmt.Println("Error reading from conneciton: ", err.Error())
 		os.Exit(1)
