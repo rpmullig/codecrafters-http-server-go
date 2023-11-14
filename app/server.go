@@ -22,7 +22,6 @@ func main() {
 		fmt.Println("Error accepting connection: ", err.Error())
 		os.Exit(1)
 	}
-	defer conn.Close()
 
 	var request_bytes []byte
 	_, err = conn.Read(request_bytes)
@@ -35,4 +34,5 @@ func main() {
 	fmt.Println("Request string: ", request_string)
 
 	conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
+	conn.Close()
 }
