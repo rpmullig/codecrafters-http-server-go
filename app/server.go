@@ -33,7 +33,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	var request_string string = strings.Reader().Read(request_bytes)
+	var request_string string = strings.Reader(request_bytes)
 	fmt.Println(request_string)
 
 	conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
