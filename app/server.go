@@ -34,13 +34,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	var request_string string
-	request_string, err = strings.Reader().Read(request_bytes)
-	if err != nil {
-		fmt.Println("Error when parsing bytes: ", err.Error())
-		os.Exit(1)
-	}
-
+	var request_string string = string(request_bytes)
 	fmt.Println(request_string)
 
 	conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
