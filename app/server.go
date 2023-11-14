@@ -23,14 +23,14 @@ func main() {
 		os.Exit(1)
 	}
 
-	var request_bytes []byte
-	_, err = conn.Read(request_bytes)
+	var request_bytes_buffer []byte = make([]byte, 1024)
+	_, err = conn.Read(request_bytes_buffer)
 	if err != nil {
 		fmt.Println("Error reading from conneciton: ", err.Error())
 		os.Exit(1)
 	}
 
-	var request_string string = string(request_bytes)
+	var request_string string = string(request_bytes_buffer)
 	fmt.Println("Request string: ", request_string)
 
 	conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
