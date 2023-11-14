@@ -43,7 +43,8 @@ func main() {
 	path := request_line[1]
 
 	request_headers, i := parse_headers(lines)
-	// request_body := lines[i:]
+	request_body := lines[i:]
+	fmt.Println("Request body: ", requst_body)
 
 	if path == "/" {
 		conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
