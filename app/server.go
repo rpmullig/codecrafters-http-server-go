@@ -43,7 +43,7 @@ func main() {
 	path := request_line[1]
 
 	request_headers, i := parse_headers(lines)
-	request_body := lines[i:]
+	// request_body := lines[i:]
 
 	if path == "/" {
 		conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
@@ -51,6 +51,8 @@ func main() {
 		// response_body, _ := strings.CutPrefix(path, ECHO_PREFIX) available in version 1.20+
 		var response_body string = path[len(ECHO_PREFIX):]
 		conn.Write([]byte(HTTP_200_OK + CRLF + CONTENT_TYPE_TEXT + CRLF + "Content-Length: " + strconv.Itoa(len(response_body)) + CRLF + CRLF + response_body))
+	} else if path == "/user-agent" {
+		conn.Write([]byte(HTTP_200_OK + CRLF + CONTENT_TYPE_TEXT + CRLF + "Content-Length: " + strconv.Itoa(len(request_headers["User-Agent"])) + CRLF + CRLF + request_headers["User-Agent"]))
 	} else {
 		conn.Write([]byte(HTTP_404_NOT_FOUND + CRLF + CRLF))
 	}
