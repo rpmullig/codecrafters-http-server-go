@@ -4,11 +4,13 @@ import (
 	"fmt"
 	 "net"
 	 "os"
+	 "strings"
 )
 
 func main() {
 	const CRLF string = "\r\n"
 	const HTTP_200_OK string = "HTTP/1.1 200 OK"
+	const HTTP_404_NOT_FOUND string = "HTTP/1.1 404 Not Found"
 
 	fmt.Println("Logs from your program will appear here!")
 
@@ -24,6 +26,15 @@ func main() {
 		os.Exit(1)
 	}
 	defer conn.Close()
+
+	request_bytes, err := conn.Read()
+	if err != nil {
+		fmt.Println("Error reading from conneciton: ", err.Error())
+		os.Exit(1)
+	}
+
+	var request_string string = strings.Reader().Read(request_bytes)
+	fmt.Println(request_string)
 
 	conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
 }
