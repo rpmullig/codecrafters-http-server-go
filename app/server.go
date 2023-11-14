@@ -42,6 +42,9 @@ func main() {
 	// http_verb := request_line[0]
 	path := request_line[1]
 
+	request_headers, i = parse_headers(lines)
+	request_body := lines[i:]
+
 	if path == "/" {
 		conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
 	} else if strings.HasPrefix(path, ECHO_PREFIX) {
@@ -51,4 +54,16 @@ func main() {
 	} else {
 		conn.Write([]byte(HTTP_404_NOT_FOUND + CRLF + CRLF))
 	}
+}
+
+func parse_headers([]string request_lines) map[string]string{
+	headers = make(map[string]string)
+	var i int = 1
+	for ; i < len(request_lines) && request_lines[i] != ""; i++ {
+		split_lines := strings.Split(request_lines[i], ":")
+		key := split_lines[0]
+		value := split_lines[1]
+		headers[key] = value
+	}
+	return headers, i
 }
