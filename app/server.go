@@ -33,9 +33,9 @@ func main() {
 	}
 
 	var request_string string = string(request_bytes_buffer)
-	lines := strings.split(request_string, CRLF)
+	lines := strings.Split(request_string, CRLF)
 
-	request_line := strings.split(lines[0], ' ')
+	request_line := strings.Split(lines[0], ' ')
 	// http_verb := request_line[0]
 	path := request_line[1]
 
