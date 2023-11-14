@@ -15,7 +15,7 @@ const CONTENT_TYPE_TEXT string ="Content-Type: text/plain"
 const ECHO_PREFIX string = "/echo/"
 
 func handle(conn net.Conn) {
-
+	defer conn.Close()
 	var request_bytes_buffer []byte = make([]byte, 1024)
 	_, err := conn.Read(request_bytes_buffer)
 	if err != nil {
