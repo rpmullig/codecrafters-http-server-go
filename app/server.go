@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	const string CRLF = "\r\n"
-	const string HTTP_200_OK = "HTTP/1.1 200 OK"
+	const CRLF string = "\r\n"
+	const HTTP_200_OK string = "HTTP/1.1 200 OK"
 
 	fmt.Println("Logs from your program will appear here!")
 
