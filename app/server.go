@@ -56,14 +56,16 @@ func main() {
 	}
 }
 
-func parse_headers([]string request_lines) map[string]string{
-	headers = make(map[string]string)
-	var i int = 1
-	for ; i < len(request_lines) && request_lines[i] != ""; i++ {
-		split_lines := strings.Split(request_lines[i], ":")
-		key := split_lines[0]
-		value := split_lines[1]
-		headers[key] = value
-	}
-	return headers, i
+func parse_headers(request_lines []string) (map[string]string, int) {
+    headers := make(map[string]string)
+    var i int
+    for i = 1; i < len(request_lines) && request_lines[i] != ""; i++ {
+        split_line := strings.SplitN(request_lines[i], ":", 2)
+        if len(split_line) == 2 {
+            key := strings.TrimSpace(split_line[0])
+            value := strings.TrimSpace(split_line[1])
+            headers[key] = value
+        }
+    }
+    return headers, i
 }
