@@ -46,7 +46,7 @@ func main() {
 	} else if strings.HasPrefix(path, ECHO_PREFIX) {
 		// response_body, _ := strings.CutPrefix(path, ECHO_PREFIX) available in version 1.20+
 		var response_body string = path[len(ECHO_PREFIX):]
-		conn.Write([]byte(HTTP_200_OK + CRLF + CONTENT_TYPE_TEXT + CRLF + "Content-Length: " + len(response_body) + CRLF + CRLF + response_body))
+		conn.Write([]byte(HTTP_200_OK + CRLF + CONTENT_TYPE_TEXT + CRLF + "Content-Length: " + string(len(response_body)) + CRLF + CRLF + response_body))
 	} else {
 		conn.Write([]byte(HTTP_404_NOT_FOUND + CRLF + CRLF))
 	}
