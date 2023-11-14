@@ -5,13 +5,15 @@ import (
 	 "net"
 	 "os"
 	"strings"
- )
+)
+
+const CRLF string = "\r\n"
+const HTTP_200_OK string = "HTTP/1.1 200 OK"
+const HTTP_404_NOT_FOUND string = "HTTP/1.1 404 Not Found"
+const CONTENT_TYPTE_TEXT string ="Content-Type: text/plain"
+const ECHO_PREFIX string = "/echo/"
 
 func main() {
-	const CRLF string = "\r\n"
-	const HTTP_200_OK string = "HTTP/1.1 200 OK"
-	const HTTP_404_NOT_FOUND string = "HTTP/1.1 404 Not Found"
-
 	l, err := net.Listen("tcp", "0.0.0.0:4221")
 	if err != nil {
 		fmt.Println("Failed to bind to port 4221")
@@ -39,9 +41,12 @@ func main() {
 	// http_verb := request_line[0]
 	path := request_line[1]
 
-	if path == "/"{
+	if path == "/" {
 		conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
-	}else {
+	} else if strings.HasPrefix(path, ECHO_PREFIX) {
+		response_body, _ := strings.CutPrefix(path, ECHO_PREFIX)
+		conn.Write([]byte(HTTP_200_OK + CRLF + CONTENT_TYPE_TEXT + CRLF + "Content-Length: " + Len(response_body) + CRLF + CRLF + response_body))
+	} else {
 		conn.Write([]byte(HTTP_404_NOT_FOUND + CRLF + CRLF))
 	}
 }
