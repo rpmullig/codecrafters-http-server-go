@@ -22,6 +22,7 @@ func main() {
 		fmt.Println("Error accepting connection: ", err.Error())
 		os.Exit(1)
 	}
+	defer conn.Close()
 
 	var request_bytes_buffer []byte = make([]byte, 1024)
 	_, err = conn.Read(request_bytes_buffer)
@@ -31,8 +32,15 @@ func main() {
 	}
 
 	var request_string string = string(request_bytes_buffer)
-	fmt.Println("Request string: ", request_string)
+	lines := strings.split(request_string, CRLF)
 
-	conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
-	conn.Close()
+	request_line := strings.split(lines[0], ' ')
+	// http_verb := request_line[0]
+	path := request_line[1]
+
+	if path == "/"{
+		conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
+	}else {
+		conn.Write([]byte(HTTP_404_NOT_FOUND + CRLF + CRLF))
+	}
 }
