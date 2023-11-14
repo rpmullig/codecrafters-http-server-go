@@ -10,7 +10,7 @@ import (
 const CRLF string = "\r\n"
 const HTTP_200_OK string = "HTTP/1.1 200 OK"
 const HTTP_404_NOT_FOUND string = "HTTP/1.1 404 Not Found"
-const CONTENT_TYPTE_TEXT string ="Content-Type: text/plain"
+const CONTENT_TYPE_TEXT string ="Content-Type: text/plain"
 const ECHO_PREFIX string = "/echo/"
 
 func main() {
@@ -44,8 +44,8 @@ func main() {
 	if path == "/" {
 		conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
 	} else if strings.HasPrefix(path, ECHO_PREFIX) {
-		response_body, _ := strings.CutPrefix(path, ECHO_PREFIX)
-		conn.Write([]byte(HTTP_200_OK + CRLF + CONTENT_TYPE_TEXT + CRLF + "Content-Length: " + Len(response_body) + CRLF + CRLF + response_body))
+		response_body, _ := strings.CutPreffix(path, ECHO_PREFIX)
+		conn.Write([]byte(HTTP_200_OK + CRLF + CONTENT_TYPE_TEXT + CRLF + "Content-Length: " + len(response_body) + CRLF + CRLF + response_body))
 	} else {
 		conn.Write([]byte(HTTP_404_NOT_FOUND + CRLF + CRLF))
 	}
