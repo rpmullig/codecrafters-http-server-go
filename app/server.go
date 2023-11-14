@@ -4,8 +4,7 @@ import (
 	"fmt"
 	 "net"
 	 "os"
-	 "strings"
-)
+ )
 
 func main() {
 	const CRLF string = "\r\n"
