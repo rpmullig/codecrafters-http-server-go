@@ -24,6 +24,7 @@ func main() {
 		os.Exit(1)
 	 }
 
+	defer conn.Close()
+	
 	conn.Write([]byte(HTTP_200_OK + CRLF + CRLF))
-	conn.Close()
 }
